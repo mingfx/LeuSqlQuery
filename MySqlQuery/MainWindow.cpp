@@ -10,10 +10,7 @@
 #include <QFileDialog>
 #include <iostream>
 using namespace std;
-string q2s(const QString &s)
-{
-	return string((const char*)s.toLocal8Bit());
-}
+
 bool IsDateInside(QDate dateStart,QDate dateEnd,QString dateTest)//dateTest:2018-05-01
 {
 	bool result = false;
@@ -39,58 +36,58 @@ bool IsDateInside(QDate dateStart,QDate dateEnd,QString dateTest)//dateTest:2018
 	return result;
 }
 //递归创建文件夹
-QString mkMutiDir(const QString path) {
-
-	QDir dir(path);
-	if (dir.exists(path)) {
-		return path;
-	}
-	QString parentDir = mkMutiDir(path.mid(0, path.lastIndexOf('/')));
-	QString dirname = path.mid(path.lastIndexOf('/') + 1);
-	QDir parentPath(parentDir);
-	if (!dirname.isEmpty())
-		parentPath.mkpath(dirname);
-	return parentDir + "/" + dirname;
-}
-bool copyDirectoryFiles(const QString &fromDir, const QString &toDir, bool coverFileIfExist)
-{
-	QDir sourceDir(fromDir);
-	QDir targetDir(toDir);
-	//if (!targetDir.exists()) {    /**< 如果目标目录不存在，则进行创建 */
-	//	if (!targetDir.mkdir(targetDir.absolutePath()))
-	//		return false;
-	//}
-	if (!targetDir.exists()) {    /**< 如果目标目录不存在，则进行创建 */
-		mkMutiDir(targetDir.absolutePath());
-		if (!targetDir.exists())
-			return false;
-	}
-
-	QFileInfoList fileInfoList = sourceDir.entryInfoList();
-	foreach(QFileInfo fileInfo, fileInfoList) {
-		if (fileInfo.fileName() == "." || fileInfo.fileName() == "..")
-			continue;
-
-		if (fileInfo.isDir()) {    /**< 当为目录时，递归的进行copy */
-			if (!copyDirectoryFiles(fileInfo.filePath(),
-				targetDir.filePath(fileInfo.fileName()),
-				coverFileIfExist))
-				return false;
-		}
-		else {            /**< 当允许覆盖操作时，将旧文件进行删除操作 */
-			if (coverFileIfExist && targetDir.exists(fileInfo.fileName())) {
-				targetDir.remove(fileInfo.fileName());
-			}
-
-			/// 进行文件copy  
-			if (!QFile::copy(fileInfo.filePath(),
-				targetDir.filePath(fileInfo.fileName()))) {
-				return false;
-			}
-		}
-	}
-	return true;
-}
+//QString mkMutiDir(const QString path) {
+//
+//	QDir dir(path);
+//	if (dir.exists(path)) {
+//		return path;
+//	}
+//	QString parentDir = mkMutiDir(path.mid(0, path.lastIndexOf('/')));
+//	QString dirname = path.mid(path.lastIndexOf('/') + 1);
+//	QDir parentPath(parentDir);
+//	if (!dirname.isEmpty())
+//		parentPath.mkpath(dirname);
+//	return parentDir + "/" + dirname;
+//}
+//bool copyDirectoryFiles(const QString &fromDir, const QString &toDir, bool coverFileIfExist)
+//{
+//	QDir sourceDir(fromDir);
+//	QDir targetDir(toDir);
+//	//if (!targetDir.exists()) {    /**< 如果目标目录不存在，则进行创建 */
+//	//	if (!targetDir.mkdir(targetDir.absolutePath()))
+//	//		return false;
+//	//}
+//	if (!targetDir.exists()) {    /**< 如果目标目录不存在，则进行创建 */
+//		mkMutiDir(targetDir.absolutePath());
+//		if (!targetDir.exists())
+//			return false;
+//	}
+//
+//	QFileInfoList fileInfoList = sourceDir.entryInfoList();
+//	foreach(QFileInfo fileInfo, fileInfoList) {
+//		if (fileInfo.fileName() == "." || fileInfo.fileName() == "..")
+//			continue;
+//
+//		if (fileInfo.isDir()) {    /**< 当为目录时，递归的进行copy */
+//			if (!copyDirectoryFiles(fileInfo.filePath(),
+//				targetDir.filePath(fileInfo.fileName()),
+//				coverFileIfExist))
+//				return false;
+//		}
+//		else {            /**< 当允许覆盖操作时，将旧文件进行删除操作 */
+//			if (coverFileIfExist && targetDir.exists(fileInfo.fileName())) {
+//				targetDir.remove(fileInfo.fileName());
+//			}
+//
+//			/// 进行文件copy  
+//			if (!QFile::copy(fileInfo.filePath(),
+//				targetDir.filePath(fileInfo.fileName()))) {
+//				return false;
+//			}
+//		}
+//	}
+//	return true;
+//}
 
 //QSqlTableModel* query(QSqlTableModel *srcTable,QString date)
 //{
@@ -195,20 +192,37 @@ MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+	ui.label_3->setVisible(false);
+	ui.label_4->setVisible(false);
+	ui.progressBar->setVisible(false);
+	ui.progressBar_2->setVisible(false);
+	hasDataProgressBarMaxSet = false;
+	hasPicProgressBarMaxSet = false;
 	model = new QSqlTableModel(this);
 	model->setTable("sample_2018");
 	model->setEditStrategy(QSqlTableModel::OnManualSubmit);
 	model->select();
 	ui.tableView->setModel(model);
 	ui.tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	QSqlRecord record_tmp = model->record(1);
-	QString chText = record_tmp.value(5).toString();
+	/*QSqlRecord record_tmp = model->record(1);
+	QString chText = record_tmp.value(5).toString();*/
 	//cout << chText.toStdString() << endl;
-	qDebug() << chText;
+	//qDebug() << chText;
+	this->picThread = new SavePicThread();
+	this->dataThread = new SaveDataThread();
+
+	connect(picThread, SIGNAL(processProgress(int, int)), this, SLOT(setPicProgress(int, int)));
+	connect(dataThread, SIGNAL(processProgress(int, int)), this, SLOT(setDataProgress(int, int)));
 }
 
 void MainWindow::on_Query_clicked()
 {
+	ui.label_3->setVisible(false);
+	ui.label_4->setVisible(false);
+	ui.progressBar->setVisible(false);
+	ui.progressBar_2->setVisible(false);
+	hasDataProgressBarMaxSet = false;
+	hasPicProgressBarMaxSet = false;
 	QDate dateStart = ui.dateEdit->date();
 	QDate dateEnd = ui.dateEdit_2->date();
 	query(model, dateStart,dateEnd);
@@ -235,7 +249,7 @@ void MainWindow::on_Save_clicked()
 		"/home",QFileDialog::ShowDirsOnly| QFileDialog::DontResolveSymlinks);
 	//qDebug() << dir;
 	//copy picture
-	for (int i = 0; i < picDir.size(); i++)
+	/*for (int i = 0; i < picDir.size(); i++)
 	{
 		QString dir1 = picDir[i].section(QRegExp("[-]"), 0, 0).trimmed();
 		QString dir2 = picDir[i].section(QRegExp("[-]"), 1, 1).trimmed().remove("0");
@@ -243,47 +257,52 @@ void MainWindow::on_Save_clicked()
 		QString dir_all = QString("D:\\Photo_new\\") + dir1 + "\\" + dir2 + "\\" + dir3 + "\\";
 		QString dstString = dir + "\\" + dir1 + "\\" + dir2 + "\\" + dir3 + "\\";
 		copyDirectoryFiles(dir_all, dstString, 1);
-	}
+	}*/
+	this->picThread->setDir(dir, picDir);
+	this->picThread->start();
 	//copy data
-	std::ofstream Ofile;
-	Ofile.open(q2s(dir) + ("\\result.csv"), ios::out | ios::trunc);
-	//Ofile<<" ,"
-	for (int i = 0; i < headerList.size(); i++)
-	{
-		Ofile << q2s(headerList[i]) << ",";
-	}
-	Ofile << endl;
-	for (int j = 0; j < dataList.size(); j++)
-	{
-		Ofile << q2s(dataList[j]) << ",";
-		if (j % 37 == 36)
-		{
-			Ofile << endl;
-		}
-	}
+	//std::ofstream Ofile;
+	//Ofile.open(q2s(dir) + ("\\result.csv"), ios::out | ios::trunc);
+	////Ofile<<" ,"
+	//for (int i = 0; i < headerList.size(); i++)
+	//{
+	//	Ofile << q2s(headerList[i]) << ",";
+	//}
+	//Ofile << endl;
+	//for (int j = 0; j < dataList.size(); j++)
+	//{
+	//	Ofile << q2s(dataList[j]) << ",";
+	//	if (j % 37 == 36)
+	//	{
+	//		Ofile << endl;
+	//	}
+	//}
+	this->dataThread->setDataString(dir, headerList, dataList);
+	this->dataThread->start();
 	qDebug() << QString::fromLocal8Bit("复制完成");
 }
 
-//void MainWindow::on_SaveData_clicked()
-//{
-//	QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
-//		"/home", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-//	std::ofstream Ofile;
-//	Ofile.open(q2s(dir) + ("\\result.csv"), ios::out | ios::trunc);
-//	//Ofile<<" ,"
-//	for (int i = 0; i < headerList.size();i++)
-//	{
-//		Ofile << q2s(headerList[i])<<",";
-//	}
-//	Ofile << endl;
-//	for (int j = 0; j < dataList.size(); j++)
-//	{
-//		Ofile << q2s(dataList[j])<<",";
-//		if (j%37==36)
-//		{
-//			Ofile << endl;
-//		}
-//	}
-//}
+void MainWindow::setPicProgress(int max, int value)
+{
+	ui.label_3->setVisible(true);
+	ui.progressBar->setVisible(true);
+	if (!hasPicProgressBarMaxSet)
+	{
+		ui.progressBar->setMaximum(max);
+		hasPicProgressBarMaxSet = true;
+	}
+	ui.progressBar->setValue(value);
+}
 
+void MainWindow::setDataProgress(int max, int value)
+{
+	ui.label_4->setVisible(true);
+	ui.progressBar_2->setVisible(true);
+	if (!hasDataProgressBarMaxSet)
+	{
+		ui.progressBar_2->setMaximum(max);
+		hasDataProgressBarMaxSet = true;
+	}
+	ui.progressBar_2->setValue(value);
+}
 

@@ -53,12 +53,18 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer_3;
     QPushButton *pushButton;
+    QPushButton *pushButton_2;
     QSpacerItem *horizontalSpacer_4;
     QHBoxLayout *horizontalLayout;
     QSpacerItem *horizontalSpacer;
-    QPushButton *pushButton_2;
+    QLabel *label_3;
     QProgressBar *progressBar;
     QSpacerItem *horizontalSpacer_2;
+    QHBoxLayout *horizontalLayout_5;
+    QSpacerItem *horizontalSpacer_9;
+    QLabel *label_4;
+    QProgressBar *progressBar_2;
+    QSpacerItem *horizontalSpacer_10;
     QSpacerItem *verticalSpacer_2;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
@@ -155,6 +161,11 @@ public:
 
         horizontalLayout_2->addWidget(pushButton);
 
+        pushButton_2 = new QPushButton(centralWidget);
+        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+
+        horizontalLayout_2->addWidget(pushButton_2);
+
         horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_2->addItem(horizontalSpacer_4);
@@ -169,10 +180,10 @@ public:
 
         horizontalLayout->addItem(horizontalSpacer);
 
-        pushButton_2 = new QPushButton(centralWidget);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+        label_3 = new QLabel(centralWidget);
+        label_3->setObjectName(QStringLiteral("label_3"));
 
-        horizontalLayout->addWidget(pushButton_2);
+        horizontalLayout->addWidget(label_3);
 
         progressBar = new QProgressBar(centralWidget);
         progressBar->setObjectName(QStringLiteral("progressBar"));
@@ -186,6 +197,31 @@ public:
 
 
         verticalLayout->addLayout(horizontalLayout);
+
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setSpacing(6);
+        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
+        horizontalSpacer_9 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_5->addItem(horizontalSpacer_9);
+
+        label_4 = new QLabel(centralWidget);
+        label_4->setObjectName(QStringLiteral("label_4"));
+
+        horizontalLayout_5->addWidget(label_4);
+
+        progressBar_2 = new QProgressBar(centralWidget);
+        progressBar_2->setObjectName(QStringLiteral("progressBar_2"));
+        progressBar_2->setValue(24);
+
+        horizontalLayout_5->addWidget(progressBar_2);
+
+        horizontalSpacer_10 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_5->addItem(horizontalSpacer_10);
+
+
+        verticalLayout->addLayout(horizontalLayout_5);
 
         verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
@@ -210,7 +246,7 @@ public:
         QObject::connect(pushButton_2, SIGNAL(clicked()), MainWindowClass, SLOT(on_Save_clicked()));
         QObject::connect(pushButton, SIGNAL(clicked()), MainWindowClass, SLOT(on_Query_clicked()));
 
-        //QMetaObject::connectSlotsByName(MainWindowClass);
+       // QMetaObject::connectSlotsByName(MainWindowClass);
     } // setupUi
 
     void retranslateUi(QMainWindow *MainWindowClass)
@@ -220,6 +256,8 @@ public:
         label_2->setText(QApplication::translate("MainWindowClass", "\346\210\252\346\255\242\346\227\245\346\234\237", Q_NULLPTR));
         pushButton->setText(QApplication::translate("MainWindowClass", "\346\237\245\350\257\242", Q_NULLPTR));
         pushButton_2->setText(QApplication::translate("MainWindowClass", "\344\277\235\345\255\230", Q_NULLPTR));
+        label_3->setText(QApplication::translate("MainWindowClass", "\344\277\235\345\255\230\345\233\276\347\211\207", Q_NULLPTR));
+        label_4->setText(QApplication::translate("MainWindowClass", "\344\277\235\345\255\230\346\225\260\346\215\256", Q_NULLPTR));
     } // retranslateUi
 
 };
