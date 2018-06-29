@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 #include "Widget.h"
+#include "AddWidget.h"
 #include <QMessageBox>
 #include <QSqlError>
 #include <QSqlRecord>
@@ -279,7 +280,7 @@ void MainWindow::on_Save_clicked()
 	//}
 	this->dataThread->setDataString(dir, headerList, dataList);
 	this->dataThread->start();
-	qDebug() << QString::fromLocal8Bit("复制完成");
+	//qDebug() << QString::fromLocal8Bit("复制完成");
 }
 
 void MainWindow::setPicProgress(int max, int value)
@@ -306,3 +307,8 @@ void MainWindow::setDataProgress(int max, int value)
 	ui.progressBar_2->setValue(value);
 }
 
+void MainWindow::on_Add_clicked()
+{
+	AddWidget *addWidget = new AddWidget;
+	addWidget->show();
+}

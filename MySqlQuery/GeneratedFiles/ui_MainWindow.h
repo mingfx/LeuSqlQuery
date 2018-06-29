@@ -65,6 +65,10 @@ public:
     QLabel *label_4;
     QProgressBar *progressBar_2;
     QSpacerItem *horizontalSpacer_10;
+    QHBoxLayout *horizontalLayout_6;
+    QSpacerItem *horizontalSpacer_11;
+    QPushButton *pushButton_3;
+    QSpacerItem *horizontalSpacer_12;
     QSpacerItem *verticalSpacer_2;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
@@ -223,6 +227,25 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_5);
 
+        horizontalLayout_6 = new QHBoxLayout();
+        horizontalLayout_6->setSpacing(6);
+        horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
+        horizontalSpacer_11 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_6->addItem(horizontalSpacer_11);
+
+        pushButton_3 = new QPushButton(centralWidget);
+        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
+
+        horizontalLayout_6->addWidget(pushButton_3);
+
+        horizontalSpacer_12 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_6->addItem(horizontalSpacer_12);
+
+
+        verticalLayout->addLayout(horizontalLayout_6);
+
         verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         verticalLayout->addItem(verticalSpacer_2);
@@ -245,8 +268,9 @@ public:
         retranslateUi(MainWindowClass);
         QObject::connect(pushButton_2, SIGNAL(clicked()), MainWindowClass, SLOT(on_Save_clicked()));
         QObject::connect(pushButton, SIGNAL(clicked()), MainWindowClass, SLOT(on_Query_clicked()));
+        QObject::connect(pushButton_3, SIGNAL(clicked()), MainWindowClass, SLOT(on_Add_clicked()));
 
-       // QMetaObject::connectSlotsByName(MainWindowClass);
+        //QMetaObject::connectSlotsByName(MainWindowClass);
     } // setupUi
 
     void retranslateUi(QMainWindow *MainWindowClass)
@@ -258,6 +282,7 @@ public:
         pushButton_2->setText(QApplication::translate("MainWindowClass", "\344\277\235\345\255\230", Q_NULLPTR));
         label_3->setText(QApplication::translate("MainWindowClass", "\344\277\235\345\255\230\345\233\276\347\211\207", Q_NULLPTR));
         label_4->setText(QApplication::translate("MainWindowClass", "\344\277\235\345\255\230\346\225\260\346\215\256", Q_NULLPTR));
+        pushButton_3->setText(QApplication::translate("MainWindowClass", "\346\267\273\345\212\240\346\225\260\346\215\256", Q_NULLPTR));
     } // retranslateUi
 
 };

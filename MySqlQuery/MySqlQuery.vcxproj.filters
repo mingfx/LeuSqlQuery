@@ -45,6 +45,9 @@
     <ClCompile Include="SaveDataThread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AddWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainWindow.h">
@@ -59,12 +62,18 @@
     <QtMoc Include="SaveDataThread.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="AddWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="MainWindow.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="Widget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="AddWidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

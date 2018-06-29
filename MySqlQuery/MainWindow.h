@@ -27,6 +27,7 @@ private:
 private slots:
 void on_Query_clicked();
 void on_Save_clicked();
+void on_Add_clicked();
 void setPicProgress(int max,int value);
 void setDataProgress(int max, int value);
 };

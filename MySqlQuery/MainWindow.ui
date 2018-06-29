@@ -271,6 +271,43 @@
        </layout>
       </item>
       <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <spacer name="horizontalSpacer_11">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_3">
+          <property name="text">
+           <string>添加数据</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_12">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
        <spacer name="verticalSpacer_2">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
@@ -320,7 +357,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>815</x>
-     <y>235</y>
+     <y>200</y>
     </hint>
     <hint type="destinationlabel">
      <x>526</x>
@@ -335,8 +372,8 @@
    <slot>on_Query_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>694</x>
-     <y>232</y>
+     <x>715</x>
+     <y>200</y>
     </hint>
     <hint type="destinationlabel">
      <x>563</x>
@@ -344,9 +381,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindowClass</receiver>
+   <slot>on_Add_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>732</x>
+     <y>298</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>869</x>
+     <y>335</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>on_Query_clicked()</slot>
   <slot>on_Save_clicked()</slot>
+  <slot>on_Add_clicked()</slot>
  </slots>
 </ui>
