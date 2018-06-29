@@ -24,6 +24,7 @@ private:
 	bool hasDataProgressBarMaxSet;
 
 	void query(QSqlTableModel *srcTable, QDate dateStart, QDate dateEnd);
+
 private slots:
 void on_Query_clicked();
 void on_Save_clicked();

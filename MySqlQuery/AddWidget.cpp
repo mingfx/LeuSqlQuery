@@ -1,10 +1,16 @@
 #include "AddWidget.h"
 #include <QFileDialog>
 #include <QDebug>
+#include <QStandardItemModel>
 
 AddWidget::AddWidget(QWidget *parent)
 {
 	uiAdd.setupUi(this);
+}
+AddWidget::AddWidget(QSqlTableModel *modelIn, QWidget *parent /* = Q_NULLPTR */)
+{
+	uiAdd.setupUi(this);
+	model = modelIn;
 }
 AddWidget::~AddWidget()
 {
@@ -29,12 +35,21 @@ void AddWidget::on_SelectButton_clicked()
 	QTextStream *out = new QTextStream(&file);
 	QStringList tempOption = out->readAll().split("\n");
 	QStringList headerList = tempOption.at(0).split(",");
+	QStandardItemModel *tableModel = new QStandardItemModel();
+	uiAdd.tableView->setModel(tableModel);
+	tableModel->setHorizontalHeaderLabels(headerList);
+	QStandardItem* item = 0;
 	for (int i = 1; i < tempOption.count();i++)
 	{
 		QStringList tempbar = tempOption.at(i).split(",");
 		qDebug() << tempbar;
+		for (int j = 0; j < tempbar.count();j++)
+		{
+			item = new QStandardItem(tempbar[j]);
+			tableModel->setItem(i-1, j, item);
+		}
 	}
 	file.close();
-	
 }
+
 

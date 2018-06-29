@@ -309,6 +309,6 @@ void MainWindow::setDataProgress(int max, int value)
 
 void MainWindow::on_Add_clicked()
 {
-	AddWidget *addWidget = new AddWidget;
+	AddWidget *addWidget = new AddWidget(model);
 	addWidget->show();
 }
