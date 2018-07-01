@@ -12,7 +12,10 @@ public:
 
 	Ui::AddWidget uiAdd;
 private:
+	bool hasDataProgressBarMaxSet;
 	QSqlTableModel *model;
+	void setProgress(int maxValue, int value);
 private slots :
 		void on_SelectButton_clicked();
+		void on_AddButton_clicked();
 };

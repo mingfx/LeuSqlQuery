@@ -210,3 +210,6 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+
+/MySqlQuery.VC.VC.opendb
+/MySqlQuery.VC.db
