@@ -84,6 +84,12 @@ void SavePicThread::run()
 		QString dir1 = picDir[i].section(QRegExp("[-]"), 0, 0).trimmed();
 		QString dir2 = picDir[i].section(QRegExp("[-]"), 1, 1).trimmed().remove("0");
 		QString dir3 = picDir[i].section(QRegExp("[-]"), 2, 2).trimmed();
+		qDebug() << dir3;
+		if (dir3.toInt()<10)
+		{
+			dir3 = dir3.remove("0");
+		}
+		qDebug() << dir3;
 		QString dir_all = QString("D:\\Photo_new\\") + dir1 + "\\" + dir2 + "\\" + dir3 + "\\";
 		QString dstString = toDir + "\\" + dir1 + "\\" + dir2 + "\\" + dir3 + "\\";
 		copyDirectoryFiles(dir_all, dstString, 1);

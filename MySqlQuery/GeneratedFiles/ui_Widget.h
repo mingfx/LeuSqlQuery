@@ -41,7 +41,7 @@ public:
 
         retranslateUi(Form);
 
-        QMetaObject::connectSlotsByName(Form);
+        //QMetaObject::connectSlotsByName(Form);
     } // setupUi
 
     void retranslateUi(QWidget *Form)
