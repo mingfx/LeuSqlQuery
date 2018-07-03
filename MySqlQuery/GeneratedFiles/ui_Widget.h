@@ -31,6 +31,9 @@ public:
         if (Form->objectName().isEmpty())
             Form->setObjectName(QStringLiteral("Form"));
         Form->resize(400, 300);
+        QIcon icon;
+        icon.addFile(QStringLiteral("ICON1.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        Form->setWindowIcon(icon);
         gridLayout = new QGridLayout(Form);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         tableView = new QTableView(Form);
@@ -46,7 +49,7 @@ public:
 
     void retranslateUi(QWidget *Form)
     {
-        Form->setWindowTitle(QApplication::translate("Form", "Form", Q_NULLPTR));
+        Form->setWindowTitle(QApplication::translate("Form", "result", Q_NULLPTR));
     } // retranslateUi
 
 };

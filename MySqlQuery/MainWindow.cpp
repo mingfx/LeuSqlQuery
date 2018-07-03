@@ -250,6 +250,12 @@ void MainWindow::on_Save_clicked()
 		"/home",QFileDialog::ShowDirsOnly| QFileDialog::DontResolveSymlinks);
 	//qDebug() << dir;
 	//copy picture
+	if (dir=="")
+	{
+		QMessageBox *warnBox = new QMessageBox;
+		warnBox->warning(this, QString::fromLocal8Bit("警告"), QString::fromLocal8Bit("选择路径为空"), QMessageBox::Abort);
+		return;
+	}
 	/*for (int i = 0; i < picDir.size(); i++)
 	{
 		QString dir1 = picDir[i].section(QRegExp("[-]"), 0, 0).trimmed();

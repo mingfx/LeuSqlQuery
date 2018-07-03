@@ -97,9 +97,12 @@ void AddWidget::on_AddButton_clicked()
 	}
 	else {
 		model->database().rollback(); //回滚
-		QMessageBox::warning(this, tr("tableModel"),
-			tr("数据库错误: %1")
-			.arg(model->lastError().text()));
+		qDebug() << model->lastError().text();
+		QString error = model->lastError().text();
+		if (error.contains("key 'PRIMARY'"))
+		{
+			QMessageBox::warning(this, tr("tableModel"),QString::fromLocal8Bit("ID重复！增加失败"));
+		}
 	}
 }
 

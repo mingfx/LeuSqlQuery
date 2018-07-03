@@ -52,6 +52,9 @@ public:
         if (AddWidget->objectName().isEmpty())
             AddWidget->setObjectName(QStringLiteral("AddWidget"));
         AddWidget->resize(887, 430);
+        QIcon icon;
+        icon.addFile(QStringLiteral("ICON1.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        AddWidget->setWindowIcon(icon);
         horizontalLayout_4 = new QHBoxLayout(AddWidget);
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
         tableView = new QTableView(AddWidget);
@@ -132,17 +135,19 @@ public:
 
         horizontalLayout_4->addLayout(verticalLayout);
 
+        horizontalLayout_4->setStretch(0, 3);
+        horizontalLayout_4->setStretch(1, 1);
 
         retranslateUi(AddWidget);
         QObject::connect(pushButton, SIGNAL(clicked()), AddWidget, SLOT(on_SelectButton_clicked()));
         QObject::connect(pushButton_2, SIGNAL(clicked()), AddWidget, SLOT(on_AddButton_clicked()));
 
-        //QMetaObject::connectSlotsByName(AddWidget);
+       // QMetaObject::connectSlotsByName(AddWidget);
     } // setupUi
 
     void retranslateUi(QWidget *AddWidget)
     {
-        AddWidget->setWindowTitle(QApplication::translate("AddWidget", "Form", Q_NULLPTR));
+        AddWidget->setWindowTitle(QApplication::translate("AddWidget", "\346\267\273\345\212\240\346\225\260\346\215\256", Q_NULLPTR));
         pushButton->setText(QApplication::translate("AddWidget", "\351\200\211\346\213\251\346\225\260\346\215\256", Q_NULLPTR));
         pushButton_2->setText(QApplication::translate("AddWidget", "\347\241\256\350\256\244\346\267\273\345\212\240", Q_NULLPTR));
         label->setText(QApplication::translate("AddWidget", "\350\277\233\345\272\246", Q_NULLPTR));

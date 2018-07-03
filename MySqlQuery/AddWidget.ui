@@ -11,9 +11,13 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>添加数据</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_4">
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>ICON1.ico</normaloff>ICON1.ico</iconset>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="3,1">
    <item>
     <widget class="QTableView" name="tableView"/>
    </item>

@@ -79,6 +79,9 @@ public:
         if (MainWindowClass->objectName().isEmpty())
             MainWindowClass->setObjectName(QStringLiteral("MainWindowClass"));
         MainWindowClass->resize(964, 400);
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/MainWindow/ICON1.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        MainWindowClass->setWindowIcon(icon);
         centralWidget = new QWidget(MainWindowClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -253,6 +256,8 @@ public:
 
         gridLayout->addLayout(verticalLayout, 0, 1, 1, 1);
 
+        gridLayout->setColumnStretch(0, 3);
+        gridLayout->setColumnStretch(1, 1);
         MainWindowClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindowClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
